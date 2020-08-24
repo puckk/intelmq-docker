@@ -15,7 +15,7 @@ RUN chmod -R 0770 /opt/intelmq
 
 RUN apt update -y && apt install -y apache2 php git sudo libapache2-mod-php7.3  && apt-get autoremove -y && apt-get clean
 
-RUN git clone --branch 2.2.0 https://github.com/certtools/intelmq-manager.git --single-branch /tmp/intelmq-manager \
+RUN git clone --branch 2.2.1 https://github.com/certtools/intelmq-manager.git --single-branch /tmp/intelmq-manager \
  && cp -R /tmp/intelmq-manager/intelmq-manager/* /var/www/html/ \
 && chown -R www-data.www-data /var/www/html/ && rm /var/www/html/index.html
 

@@ -22,8 +22,6 @@ services:
       search.max_buckets: '10002'
     volumes:
     - cert-intelmq-elastic-data:/usr/share/elasticsearch/data
-    links:
-    - grafana:grafana
     ports:
       - 9200:9200
   grafana:

@@ -24,7 +24,7 @@ RUN usermod -a -G intelmq www-data && mkdir /opt/intelmq/etc/manager
 RUN echo "www-data ALL=(intelmq) NOPASSWD: /usr/local/bin/intelmqctl" >> /etc/sudoers
 
 ADD state.json /opt/intelmq/var/lib/state.json
-RUN git clone --branch 2.2.0 https://github.com/certtools/intelmq.git  --single-branch /opt/dev_intelmq
+RUN git clone --branch 2.2.1 https://github.com/certtools/intelmq.git  --single-branch /opt/dev_intelmq
 
 #ADD dev_intelmq /opt/dev_intelmq
 ADD entrypoint /usr/bin/entrypoint
@@ -40,7 +40,7 @@ RUN rm -fr /opt/intelmq/etc/*.conf /var/lib/apt/lists/* /root/.cache
 
 
 ADD message.patch /tmp/message.patch
-ADD config.patch /tmp/config.patch
+
 
 ENTRYPOINT ["entrypoint"]
 CMD ["apachectl -DFOREGROUND"]

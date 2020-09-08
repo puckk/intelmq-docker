@@ -5,3 +5,4 @@ data/*
 docker-compose-local.yml
 volumes/logs/
 volumes/output/
+redis/

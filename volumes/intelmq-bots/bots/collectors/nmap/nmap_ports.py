@@ -12,8 +12,6 @@ Parameters:
     nmap_params: string
 """
 
-import fnmatch
-import os
 import subprocess
 import ipaddress
 

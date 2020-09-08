@@ -14,7 +14,29 @@
                 "rate_limit": 300
             }
         },
-        "Nmap": {
+        "Generator Nmap Ports": {
+            "description": "Generate fake data.",
+            "module": "intelmq.bots.collectors.generators.nmap_ports",
+            "parameters": {
+                "network": "163.10.0.0/16",
+                "ports": "25,80,443,8080",
+                "chance_open": 0.2,
+                "iteration_time": 1,
+                "stop_time": 86400,
+                "count": 1000
+            }
+        },
+        "Generator Domains": {
+            "description": "Generate fake data.",
+            "module": "intelmq.bots.collectors.generators.domains",
+            "parameters": {
+                "subdomain_of": "not working yet",
+                "iteration_time": 1,
+                "stop_time": 86400,
+                "count": 1000
+            }
+        },
+        "Nmap Ports": {
             "description": "Nmap collector fetches data from a file.",
             "module": "intelmq.bots.collectors.nmap.nmap_ports",
             "parameters": {
@@ -22,6 +44,20 @@
                 "ports": "80,443",
                 "nmap_params": "-n -T4 -Pn --max-rtt-timeout 200ms --initial-rtt-timeout 100ms --min-hostgroup 512 -oG -"
             }
+        }
+    },
+    "Parser": {
+        "Nmap Ports": {
+            "description": "Parse output of nmap oG ports scan.",
+            "module": "intelmq.bots.parsers.nmap.nmap_ports",
+            "parameters": {}
+        }
+    },
+    "Expert": {
+        "DNS Resolver A/CNAME": {
+            "description": "Resolve A and CNAME and create new event with results.",
+            "module": "intelmq.bots.experts.dns.resolve_a",
+            "parameters": {}
         }
     },
     "Output": {

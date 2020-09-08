@@ -35,7 +35,10 @@ if [ "${LOG_MAIL_ENABLED}" = "true" ]; then
 fi
 
 
-if [ $(wc -l /opt/dev_intelmq/intelmq/lib/message.py | cut -d " " -f1 ) -eq 569 ] ; then patch /opt/dev_intelmq/intelmq/lib/message.py /message.patch; fi
+if [ $(wc -l /opt/dev_intelmq/intelmq/lib/message.py | cut -d " " -f1 ) -eq 569 ] ; then patch /opt/dev_intelmq/intelmq/lib/message.py /tmp/message.patch; fi
+
+if [ $(md5sum /var/www/html/php/config.php | cut -d " " -f 1) == e40cb515eed553334af6bcb07973b507 ] ; then patch /var/www/html/php/config.php /tmp/config.patch; fi
+
 
 if [ "${ENABLE_BOTNET_AT_BOOT}" = "true" ]; then
 	su - intelmq -s /bin/bash -c 'intelmqctl start'

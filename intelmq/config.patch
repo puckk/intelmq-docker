@@ -1,0 +1,29 @@
+17c17
+<     $VERSION = "2.2.1";
+---
+>     $VERSION = "2.2.0";
+27a28
+>         'system' 	=> '/opt/intelmq/etc/system.conf',
+31c32
+<     $proc = proc_open(sprintf($CONTROLLER_JSON, "debug --get-paths"), [
+---
+>     $proc = proc_open($c . "--type json debug --get-paths", [
+41,47c42,49
+<         $paths_output = json_decode($paths_stdout, true)['paths'];
+<         $FILES['bots'] = $paths_output['BOTS_FILE'];
+<         $FILES['defaults'] = $paths_output['DEFAULTS_CONF_FILE'];
+<         $FILES['harmonization'] = $paths_output['HARMONIZATION_CONF_FILE'];
+<         $FILES['pipeline'] = $paths_output['PIPELINE_CONF_FILE'];
+<         $FILES['runtime'] = $paths_output['RUNTIME_CONF_FILE'];
+<         $FILES['positions'] = $paths_output['CONFIG_DIR'] . "/manager/positions.conf";
+---
+>         $paths_output = json_decode($paths_stdout);
+>         $FILES['bots'] = $output['BOTS_FILE'];
+>         $FILES['defaults'] = $output['DEFAULTS_CONF_FILE'];
+>         $FILES['harmonization'] = $output['HARMONIZATION_CONF_FILE'];
+>         $FILES['pipeline'] = $output['PIPELINE_CONF_FILE'];
+>         $FILES['runtime'] = $output['RUNTIME_CONF_FILE'];
+>         $FILES['system'] = $output['SYSTEM_CONF_FILE'];
+>         $FILES['positions'] = $output['CONFIG_DIR'] . "/manager/positions.conf";
+49a52
+> 

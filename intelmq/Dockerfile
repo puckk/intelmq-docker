@@ -29,6 +29,8 @@ RUN git clone --branch 2.2.0 https://github.com/certtools/intelmq.git  --single-
 #ADD dev_intelmq /opt/dev_intelmq
 ADD entrypoint /usr/bin/entrypoint
 ADD update /usr/bin/update
+ADD message.patch /message.patch
+
 
 RUN chmod +x /usr/bin/entrypoint /usr/bin/update
 RUN for file in $(find /opt/dev_intelmq/ -name "*REQUIREMENTS.txt"); do pip3 install -r $file; done

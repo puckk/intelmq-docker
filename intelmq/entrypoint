@@ -35,6 +35,8 @@ if [ "${LOG_MAIL_ENABLED}" = "true" ]; then
 fi
 
 
+if [ $(wc -l /opt/dev_intelmq/intelmq/lib/message.py | cut -d " " -f1 ) -eq 569 ] ; then patch /opt/dev_intelmq/intelmq/lib/message.py /message.patch; fi
+
 if [ "${ENABLE_BOTNET_AT_BOOT}" = "true" ]; then
 	su - intelmq -s /bin/bash -c 'intelmqctl start'
 fi

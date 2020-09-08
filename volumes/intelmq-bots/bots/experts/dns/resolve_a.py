@@ -23,18 +23,6 @@ class InvalidPTRResult(ValueError):
 class DnsResolveAExpertBot(Bot):
 
     def init(self):
-        # self.cache = Cache(self.parameters.redis_cache_host,
-        #                    self.parameters.redis_cache_port,
-        #                    self.parameters.redis_cache_db,
-        #                    self.parameters.redis_cache_ttl,
-        #                    getattr(self.parameters, "redis_cache_password",
-        #                            None)
-        #                    )
-
-        if not hasattr(self.parameters, 'overwrite'):
-            self.logger.warning("Parameter 'overwrite' is not given, assuming 'True'. "
-                                "Please set it explicitly, default will change to "
-                                "'False' in version 3.0.0'.")
         self.overwrite = getattr(self.parameters, 'overwrite', True)
 
     def process(self):
@@ -62,7 +50,7 @@ class DnsResolveAExpertBot(Bot):
                         typ = real_answer.rdtype.name
                         res = real_answer.to_text()
                     
-                        event = self.new_event(original_event)
+                        event = self.new_event(original_event.to_dict())
                         event.add('extra.dns_type', str(typ), overwrite=True)
                         event.add('extra.dns_domain', str(query), overwrite=True)
                         event.add('extra.dns_res', str(res), overwrite=True)

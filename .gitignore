@@ -1,7 +1,7 @@
 .idea
 *.iml
 output/*
-intelmq-bots/
 data/*
 docker-compose-local.yml
-volumes
+volumes/logs/
+volumes/output/

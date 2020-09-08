@@ -29,6 +29,8 @@ services:
     - cert-intelmq-elastic-data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+    networks:
+      - intelmq-network
   grafana:
     image: grafana/grafana:6.5.2
     volumes:
@@ -38,6 +40,8 @@ services:
     user: '0'
     ports:
       - 3000:3000
+    networks:
+      - intelmq-network
   intelmq:
     build: intelmq/
     ports:

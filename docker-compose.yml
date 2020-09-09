@@ -10,7 +10,7 @@ volumes:
     driver: local
   cert-intelmq-elastic-data:
     driver: local
-  cert-intelmq-postgre-data:
+  cert-intelmq-postgres-data:
     driver: local
   cert-intelmq-grafana:
     driver: local
@@ -33,10 +33,10 @@ services:
       - 9200:9200
     networks:
       - intelmq-network
-  postgre:
-    image: postgre
+  postgres:
+    image: postgres
     volumes:
-      - cert-intelmq-postgre-data:/var/lib/postgresql/data
+      - cert-intelmq-postgres-data:/var/lib/postgresql/data
       - ./intelmq/init.sql:/docker-entrypoint-initdb.d/10-init.sql
     environment:
       - POSTGRES_USER=intelmq

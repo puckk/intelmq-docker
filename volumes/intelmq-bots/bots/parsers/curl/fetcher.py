@@ -5,12 +5,16 @@ from intelmq.lib import utils
 from intelmq.lib.bot import ParserBot
 import requests
 from intelmq.lib.exceptions import MissingDependencyError
+from bs4 import BeautifulSoup
+import magic
+from urllib import parse
 
 class HttpFetcherBot(ParserBot):
     def init(self):
         if requests is None:
             raise MissingDependencyError("requests")
         self.set_request_parameters()
+        self.magic = magic.Magic(mime=True)
 
     def set_request_parameters(self):
         self.http_header = getattr(self.parameters, 'http_header', {})
@@ -53,6 +57,28 @@ class HttpFetcherBot(ParserBot):
         url = val
 
         r = requests.get(url, headers=self.http_header, **self.kwargs)
+        bs = BeautifulSoup(r.text, "html.parser")
+        try:
+            title = bs.find("title").text
+        except:
+            title = ""
+
+        if not r.headers["Content-Type"]:
+            content_type = self.magic.from_buffer(r.content)
+        else:
+            content_type = r.headers["Content-Type"]
+
+        original_links = [tag_a["href"] for tag_a in bs.find_all("a", href=True)]
+        # Sacar almohadillas
+        links = [link for link in original_links if not link.startswith("#")]
+        #Parse url absolute/relative
+        links = [parse.urljoin(r.url, l) for l in links]
+        links = list(set(links))
+        links = [ parse.urlparse(link) for link in links ]
+
+        links_fragments = [link for link in original_links if not link.startswith("#")]
+
+        
 
         event.add('extra.response_code', r.status_code)
         event.add('extra.cookies', r.cookies.get_dict())
@@ -61,6 +87,10 @@ class HttpFetcherBot(ParserBot):
         event.add('extra.content', r.content.decode("ISO-8859-1"))
         event.add('extra.url', r.url)
         event.add('extra.response_time', r.elapsed.microseconds)
+        event.add("extra.title", title)
+        event.add("extra.content_type", content_type)
+        event.add("extra.links", links)
+
 
 
         yield event

@@ -5,7 +5,7 @@ MAINTAINER Jeremias <jpretto@cert.unlp.edu.ar>
 MAINTAINER Mateo <mdurante@cert.unlp.edu.ar>
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt  update && apt install -y python3-pip python3-dnspython python3-psutil python3-redis python3-requests python3-termstyle python3-tz python3-dateutil jq python3-sleekxmpp python3-pymongo python3-psycopg2 bash-completion rsync
+RUN apt  update && apt install -y python3-pip python3-dnspython python3-psutil python3-redis python3-requests python3-termstyle python3-tz python3-dateutil jq python3-sleekxmpp python3-pymongo python3-psycopg2 bash-completion rsync nmap
 
 RUN pip3 install --default-timeout=100 intelmq
 
@@ -41,6 +41,7 @@ RUN rm -fr /opt/intelmq/etc/*.conf /var/lib/apt/lists/* /root/.cache
 
 
 ADD message.patch /tmp/message.patch
+ADD example_data /example_data
 
 
 ENTRYPOINT ["entrypoint"]

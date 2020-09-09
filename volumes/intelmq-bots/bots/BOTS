@@ -51,9 +51,35 @@
             "description": "Parse output of nmap oG ports scan.",
             "module": "intelmq.bots.parsers.nmap.nmap_ports",
             "parameters": {}
+        },
+        "Http-fetcher": {
+            "description": "Receive a list of URL's, make an http request and save the response HTML",
+            "module": "intelmq.bots.parsers.curl.fetcher",
+            "parameters": {
+                "follow_redirect": "<true/false>",
+                "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36",
+                "headers": "",
+                "http_username": null,
+                "http_password": null,
+                "rate_limit": 3600,
+                "ssl_client_certificate": null
+            }
         }
     },
     "Expert": {
+        "Deduplicator": {
+            "description": "Detection and drop exact duplicate messages. Message hashes are cached in the Redis datbase.",
+            "module": "intelmq.bots.experts.deduplicator.expert",
+            "parameters": {
+                "filter_keys": "raw,time.observation",
+                "filter_type": "blacklist",
+                "redis_cache_db": "6",
+                "redis_cache_host": "127.0.0.1",
+                "redis_cache_password": null,
+                "redis_cache_port": "6379",
+                "redis_cache_ttl": "86400"
+            }
+        },
         "DNS Resolver A/CNAME": {
             "description": "Resolve A and CNAME and create new event with results.",
             "module": "intelmq.bots.experts.dns.resolve_a",

@@ -10,6 +10,8 @@ volumes:
     driver: local
   cert-intelmq-elastic-data:
     driver: local
+  cert-intelmq-postgre-data:
+    driver: local
   cert-intelmq-grafana:
     driver: local
 
@@ -26,17 +28,30 @@ services:
       discovery.type: single-node
       search.max_buckets: '10002'
     volumes:
-    - cert-intelmq-elastic-data:/usr/share/elasticsearch/data
+      - cert-intelmq-elastic-data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+    networks:
+      - intelmq-network
+  postgre:
+    image: postgre
+    volumes:
+      - cert-intelmq-postgre-data:/var/lib/postgresql/data
+      - ./intelmq/init.sql:/docker-entrypoint-initdb.d/10-init.sql
+    environment:
+      - POSTGRES_USER=intelmq
+      - POSTGRES_PASSWORD=intelmq
+      - POSTGRES_DB=intelmq-events
+    ports:
+      - 5432:5432
     networks:
       - intelmq-network
   grafana:
     image: grafana/grafana:6.5.2
     volumes:
-    - cert-intelmq-grafana:/var/lib/grafana
+      - cert-intelmq-grafana:/var/lib/grafana
     links:
-    - elasticsearch:elasticsearch
+      - elasticsearch:elasticsearch
     user: '0'
     ports:
       - 3000:3000
@@ -45,7 +60,7 @@ services:
   intelmq:
     build: intelmq/
     ports:
-        - 8081:80
+      - 8081:80
     depends_on:
       - redis
     networks:
@@ -88,4 +103,4 @@ services:
       LOGROTATE_COMPRESSION: compress
       LOGROTATE_CRONSCHEDULE: '46 * * * * *'
     volumes:
-    - ./volumes/logs:/var/log/intelmq
+      - ./volumes/logs:/var/log/intelmq

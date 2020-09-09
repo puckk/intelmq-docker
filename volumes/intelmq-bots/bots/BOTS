@@ -80,6 +80,26 @@
                 "replacement_char": null
             }
         },
+        "Elasticsearch Bulk": {
+            "description": "Elasticsearch is the bot responsible to send events to a elasticsearch.",
+            "module": "intelmq.bots.outputs.bulk.elastic",
+            "parameters": {
+                "elastic_host": "127.0.0.1",
+                "elastic_port": 9200,
+                "elastic_index": "intelmq",
+                "rotate_index": "never",
+                "elastic_doctype": "events",
+                "http_username": null,
+                "http_password": null,
+                "use_ssl": false,
+                "http_verify_cert": false,
+                "ssl_ca_certificate": null,
+                "ssl_show_warnings": true,
+                "flatten_fields": "extra",
+                "replacement_char": null,
+                "batch_size": 1000
+            }
+        },
         "File": {
             "description": "File is the bot responsible to send events to a file.",
             "module": "intelmq.bots.outputs.file.output",

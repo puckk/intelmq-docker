@@ -108,7 +108,7 @@
         },
         "Elasticsearch Bulk": {
             "description": "Elasticsearch is the bot responsible to send events to a elasticsearch.",
-            "module": "intelmq.bots.outputs.bulk.elastic",
+            "module": "intelmq.bots.outputs.nosql.elastic_bulk",
             "parameters": {
                 "elastic_host": "127.0.0.1",
                 "elastic_port": 9200,
@@ -164,7 +164,7 @@
         },
         "PostgreSQL": {
             "description": "PostgreSQL is the bot responsible to send events to a PostgreSQL Database. When activating autocommit, transactions are not used: http://initd.org/psycopg/docs/connection.html#connection.autocommit",
-            "module": "intelmq.bots.outputs.postgresql.output",
+            "module": "intelmq.bots.outputs.sql.postgres",
             "parameters": {
                 "autocommit": true,
                 "database": "intelmq-events",

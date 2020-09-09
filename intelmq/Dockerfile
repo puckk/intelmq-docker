@@ -40,6 +40,7 @@ RUN rm -fr /opt/intelmq/etc/*.conf /var/lib/apt/lists/* /root/.cache
 
 
 ADD message.patch /tmp/message.patch
+ADD example_data /example_data
 
 
 ENTRYPOINT ["entrypoint"]

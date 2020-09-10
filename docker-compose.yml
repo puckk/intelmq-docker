@@ -84,7 +84,7 @@ services:
       LOG_MAIL_SUBJECT: "[INTELMQ] Application Error"
       LOG_MAIL_CREDENTIALS: None #tuple (username, password)
       LOG_MAIL_SECURE: None
-      ENABLE_BOTNET_AT_BOOT: "true"
+      ENABLE_BOTNET_AT_BOOT: "false"
   redis:
     image: redis
     volumes:

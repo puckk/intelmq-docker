@@ -8,8 +8,13 @@ and thus temporary. We don't want to catch too much, like programming errors
 (missing fields etc).
 """
 
+from threading import Thread
+import queue
+
 from intelmq.lib.bot import SQLBot
 import json
+
+from intelmq import HARMONIZATION_CONF_FILE
 
 
 class CustomSQLOutputBot(SQLBot):
@@ -21,9 +26,10 @@ class CustomSQLOutputBot(SQLBot):
 
         self.table_keys = self.parameters.table_keys
         self.drop_table = getattr(self.parameters, 'drop_table', False)
+        self.batch_size = getattr(self.parameters, 'batch_size', 1000)
 
         self.logger.info(str(self.drop_table))
-
+        self.logger.info(str(self.batch_size))
         self.logger.info(str(self.table_keys))
 
         self.create_table()
@@ -66,25 +72,58 @@ class CustomSQLOutputBot(SQLBot):
         flatten(y) 
         return out
 
+    def create_query(self, to_upload):
+        keys = '", "'.join(sorted(self.table_keys.keys()))
+        all_values = []
+
+        for tu in to_upload:
+            event = json.loads(tu.to_json(hierarchical=True, jsondict_as_string=self.jsondict_as_string))
+            # self.logger.info(str(event))
+            to_save = self.flatten_json(event)
+            values = ["'{}'".format(to_save[k]) if k in to_save else "" for k in sorted(self.table_keys.keys())]
+            # fvalues = "({})".format(len(values) * '{0}, '.format(self.format_char)[:-2])
+            # all_values.extend(values)
+            all_values.append("({})".format(', '.join(values)))
+
+        # fvalues = 
+        query = ('INSERT INTO {table} ("{keys}") VALUES {values}'
+                 ''.format(table=self.table, keys=keys, values=', '.join(all_values)))
+        self.logger.info(query)
+        self.logger.info(str(values))
+
+        return query
+
+    def uploader(self, q, batch_size):
+        # self.logger.info('staring upload')
+        to_upload = []
+        while True:
+            # self.logger.info('getting ')
+            to_upload.append(q.get())
+            # self.logger.info('appended, qsize = {}'.format(len(to_upload)))
+            if len(to_upload) >= batch_size:
+                # self.logger.info('uploading....')
+                
+                query = self.create_query(to_upload)
+                if self.execute(query, [], rollback=True):
+                    self.con.commit()
+
+                to_upload = []
+                # self.logger.info('uploaded!')
+
+
     def process(self):
-        event = json.loads(self.receive_message().to_json(hierarchical=True, jsondict_as_string=self.jsondict_as_string))
-        # self.logger.info(str(event))
-        to_save = self.flatten_json(event)
-        # self.logger.info(str(to_save))
-        to_save = {key: value for key, value in to_save.items() if key in self.table_keys.keys()}
-        # self.logger.info(str(to_save))
 
-
-        keys = '", "'.join(to_save.keys())
-        values = list(to_save.values())
-        fvalues = len(values) * '{0}, '.format(self.format_char)
-        query = ('INSERT INTO {table} ("{keys}") VALUES ({values})'
-                 ''.format(table=self.table, keys=keys, values=fvalues[:-2]))
-        # self.logger.info(query)
-
-        if self.execute(query, values, rollback=True):
-            self.con.commit()
+        q = queue.Queue() 
+        thr1 = Thread(target=self.uploader, args=(q, self.batch_size,))
+        thr1.start()
+ 
+        while True:
+            # self.logger.info('pop from pipeline')
+            event = self.receive_message()
+            # self.logger.info(str(event))
+            q.put(event)
             self.acknowledge_message()
+            # self.logger.info('added to queue')
 
 
 BOT = CustomSQLOutputBot

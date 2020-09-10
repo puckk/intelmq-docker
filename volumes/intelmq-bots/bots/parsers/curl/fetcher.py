@@ -78,8 +78,6 @@ class HttpFetcherBot(ParserBot):
 
         links_fragments = [link for link in original_links if not link.startswith("#")]
 
-        
-
         event.add('extra.response_code', r.status_code)
         event.add('extra.cookies', r.cookies.get_dict())
         event.add('extra.headers', dict(r.headers))

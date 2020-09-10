@@ -15,6 +15,7 @@ from json import loads
 
 from intelmq.lib.bot import Bot
 from intelmq.lib.exceptions import MissingDependencyError
+import time
 
 try:
     from elasticsearch import Elasticsearch
@@ -139,13 +140,22 @@ class ElasticsearchBulkOutputBot(Bot):
     def uploader(self, q, batch_size):
         to_upload = []
         while True:
-            to_upload.append(self.parse_msg(q.get()))
+            empty = False
+            try:
+                to_upload.append(self.parse_msg(q.get(block=False)))
+            except queue.Empty:
+                empty=True
+
             # self.logger.info('appended, qsize = {}'.format(len(to_upload)))
-            if len(to_upload) >= batch_size:
-                self.logger.info('uploading....')
+            if len(to_upload) >= batch_size or (empty and len(to_upload)>0):
+                self.logger.info('uploading {} events...'.format(len(to_upload)))
                 bulk(self.es, to_upload)
+                self.logger.info('uploaded {} events!'.format(len(to_upload)))
                 to_upload = []
-                self.logger.info('uploaded!')
+
+            if empty:
+                time.sleep(1)
+
 
 
     def process(self):

@@ -105,3 +105,17 @@ services:
       LOGROTATE_CRONSCHEDULE: '46 * * * * *'
     volumes:
       - ./volumes/logs:/var/log/intelmq
+  pgweb:
+    container_name: pgweb
+    restart: always
+    image: sosedoff/pgweb
+    networks:
+      - intelmq-network
+    ports:
+      - "9999:8081"
+    links:
+      - postgres:postgres
+    environment:
+      - DATABASE_URL=postgres://intelmq:intelmq@postgres:5432/postgres?sslmode=disable
+    depends_on:
+      - postgres

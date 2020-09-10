@@ -50,6 +50,7 @@ services:
     image: grafana/grafana:6.5.2
     volumes:
       - cert-intelmq-grafana:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
     links:
       - elasticsearch:elasticsearch
     user: '0'
@@ -84,7 +85,7 @@ services:
       LOG_MAIL_SUBJECT: "[INTELMQ] Application Error"
       LOG_MAIL_CREDENTIALS: None #tuple (username, password)
       LOG_MAIL_SECURE: None
-      ENABLE_BOTNET_AT_BOOT: "true"
+      ENABLE_BOTNET_AT_BOOT: "false"
   redis:
     image: redis
     volumes:

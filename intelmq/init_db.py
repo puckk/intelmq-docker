@@ -77,7 +77,6 @@ def generate(harmonization_file=HARMONIZATION_CONF_FILE):
     for field in sorted(FIELDS.keys()):
         if "extra." in field or "time.observation" in field:
             initdb += 'CREATE INDEX "idx_events_{0}" ON events USING btree ("{0}");\n'.format(field)
-
     return initdb
 
 
@@ -85,13 +84,7 @@ def main():
     OUTPUTFILE = "/tmp/initdb.sql"
     fp = None
     try:
-        if os.path.exists(OUTPUTFILE):
-            print('INFO - File {} exists, generating temporary file.'.format(OUTPUTFILE))
-            os_fp, OUTPUTFILE = tempfile.mkstemp(suffix='.initdb.sql',
-                                                 text=True)
-            fp = os.fdopen(os_fp, 'wt')
-        else:
-            fp = open(OUTPUTFILE, 'wt')
+        fp = open(OUTPUTFILE, 'wt')
         psql = generate()
         print("INFO - Writing %s file" % OUTPUTFILE)
         fp.write(psql)

@@ -47,4 +47,8 @@ fi
 # Requirements TeamCymru Bots
 sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1.0/' /etc/ssl/openssl.cnf
 
+python3.8 /opt/dev_intelmq/intelmq/bin/intelmq_psql_initdb.py
+PGPASSWORD=intelmq psql intelmq-events -h postgres -U intelmq -w   < /tmp/initdb.sql
+
+
 $@

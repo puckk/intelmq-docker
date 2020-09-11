@@ -37,7 +37,6 @@ services:
     image: postgres
     volumes:
       - cert-intelmq-postgres-data:/var/lib/postgresql/data
-      - ./intelmq/init.sql:/docker-entrypoint-initdb.d/10-init.sql
     environment:
       - POSTGRES_USER=intelmq
       - POSTGRES_PASSWORD=intelmq

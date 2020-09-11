@@ -81,18 +81,18 @@ class CustomSQLOutputBot(SQLBot):
             event = json.loads(tu.to_json(hierarchical=True, jsondict_as_string=self.jsondict_as_string))
             # self.logger.info(str(event))
             to_save = self.flatten_json(event)
-            values = ["'{}'".format(to_save[k]) if k in to_save else "" for k in sorted(self.table_keys.keys())]
+            values = ["{}".format(to_save[k]) if k in to_save else "" for k in sorted(self.table_keys.keys())]
             # fvalues = "({})".format(len(values) * '{0}, '.format(self.format_char)[:-2])
-            # all_values.extend(values)
-            all_values.append("({})".format(', '.join(values)))
+            all_values.extend(values)
+            # all_values.append("({})".format(', '.join(values)))
 
-        # fvalues = 
-        query = ('INSERT INTO {table} ("{keys}") VALUES {values}'
-                 ''.format(table=self.table, keys=keys, values=', '.join(all_values)))
+        fvalues = (len(to_upload)*'({}), '.format((len(self.table_keys) * '{0}, '.format(self.format_char))[:-2]))[:-2]
+        query = ('INSERT INTO {table} ("{keys}") VALUES {fvalues}'
+                 ''.format(table=self.table, keys=keys, fvalues=fvalues))
         self.logger.info(query)
         self.logger.info(str(values))
 
-        return query
+        return query, all_values
 
     def uploader(self, q, batch_size):
         # self.logger.info('staring upload')
@@ -104,8 +104,10 @@ class CustomSQLOutputBot(SQLBot):
             if len(to_upload) >= batch_size:
                 # self.logger.info('uploading....')
                 
-                query = self.create_query(to_upload)
-                if self.execute(query, [], rollback=True):
+                query, values = self.create_query(to_upload)
+                # self.logger.info('Query: {}'.format(query))
+                # self.logger.info('Values: {}'.format(values))
+                if self.execute(query, values, rollback=True):
                     self.con.commit()
 
                 to_upload = []

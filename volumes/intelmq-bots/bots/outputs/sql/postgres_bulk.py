@@ -49,7 +49,8 @@ class CustomSQLOutputBot(SQLBot):
         initdb += "\n);\n"
 
         for field in sorted(self.table_keys.keys()):
-            initdb += 'CREATE INDEX IF NOT EXISTS "idx_{0}_{1}" ON {0} USING btree ("{1}");\n'.format(self.table, field)
+            if not self.table_keys[field] in ['text']:
+                initdb += 'CREATE INDEX IF NOT EXISTS "idx_{0}_{1}" ON {0} USING btree ("{1}");\n'.format(self.table, field)
 
         if self.execute(initdb, [], rollback=True):
             self.con.commit()

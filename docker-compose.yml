@@ -115,6 +115,6 @@ services:
     links:
       - postgres:postgres
     environment:
-      - DATABASE_URL=postgres://intelmq:intelmq@postgres:5432/postgres?sslmode=disable
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable
     depends_on:
       - postgres

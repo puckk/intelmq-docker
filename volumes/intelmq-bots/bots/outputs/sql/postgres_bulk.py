@@ -105,8 +105,8 @@ class CustomSQLOutputBot(SQLBot):
                 # self.logger.info('uploading....')
                 
                 query, values = self.create_query(to_upload)
-                self.logger.info('Query: {}'.format(query))
-                self.logger.info('Values: {}'.format(values))
+                # self.logger.info('Query: {}'.format(query))
+                # self.logger.info('Values: {}'.format(values))
                 if self.execute(query, values, rollback=True):
                     self.con.commit()
 

@@ -37,7 +37,7 @@ class NmapPortsGeneratorCollectorBot(CollectorBot):
     def process(self):
         self.logger.info("Starting Generator Process.")
         proto = 'tcp'
-        
+        it = 0
         for ip in self.network:
             port_states = []
             for port in self.ports:
@@ -51,6 +51,9 @@ class NmapPortsGeneratorCollectorBot(CollectorBot):
             report = self.new_report()
             report.add("raw", data)
             self.send_message(report)
+            it += 1
+            if (it >=self.count):
+                return
             time.sleep(self.iteration_time)
         
         time.sleep(self.stop_time)

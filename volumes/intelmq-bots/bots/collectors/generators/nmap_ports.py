@@ -38,23 +38,24 @@ class NmapPortsGeneratorCollectorBot(CollectorBot):
         self.logger.info("Starting Generator Process.")
         proto = 'tcp'
         it = 0
-        for ip in self.network:
-            port_states = []
-            for port in self.ports:
-                state = 'open' if random.random() < self.chance_open else 'closed'
-                port_states.append("{}/{}/{}//unknown///".format(port, state, proto))
-            
-            ports_str = ', '.join(port_states)
-            data = 'Host: {} ()	Ports: {}'.format(ip, ports_str)
-            self.logger.info("Sending data: {}".format(data))
+        while True:
+            for ip in self.network:
+                port_states = []
+                for port in self.ports:
+                    state = 'open' if random.random() < self.chance_open else 'closed'
+                    port_states.append("{}/{}/{}//unknown///".format(port, state, proto))
 
-            report = self.new_report()
-            report.add("raw", data)
-            self.send_message(report)
-            it += 1
-            if (it >=self.count):
-                return
-            time.sleep(self.iteration_time)
+                ports_str = ', '.join(port_states)
+                data = 'Host: {} ()	Ports: {}'.format(ip, ports_str)
+                self.logger.info("Sending data: {}".format(data))
+
+                report = self.new_report()
+                report.add("raw", data)
+                self.send_message(report)
+                it += 1
+                if (it >=self.count):
+                    return
+                time.sleep(self.iteration_time)
         
         time.sleep(self.stop_time)
 

@@ -173,8 +173,28 @@
                 "password": "<password>",
                 "port": "5432",
                 "sslmode": "require",
-                "table": "events",
-                "user": "intelmq"
+                "table": "ports",
+                "user": "intelmq",
+                "drop_table": false,
+                "table_keys": "{\"extra.port\": \"integer\", \"extra.ip\": \"inet\", \"extra.state\": \"varchar(11)\", \"extra.protocol_transport\": \"varchar(11)\",\"time.observation\": \"timestamp with time zone\"}"
+            }
+        },
+        "PostgreSQL Bulk": {
+            "description": "PostgreSQL is the bot responsible to send events to a PostgreSQL Database. When activating autocommit, transactions are not used: http://initd.org/psycopg/docs/connection.html#connection.autocommit",
+            "module": "intelmq.bots.outputs.sql.postgres_bulk",
+            "parameters": {
+                "autocommit": true,
+                "database": "intelmq-events",
+                "host": "localhost",
+                "jsondict_as_string": true,
+                "password": "<password>",
+                "port": "5432",
+                "sslmode": "require",
+                "table": "ports",
+                "user": "intelmq",
+                "drop_table": false,
+                "table_keys": "{\"extra.port\": \"integer\", \"extra.ip\": \"inet\", \"extra.state\": \"varchar(11)\", \"extra.protocol_transport\": \"varchar(11)\",\"time.observation\": \"timestamp with time zone\"}",
+                "batch_size": 1000
             }
         }
     }

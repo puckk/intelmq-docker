@@ -43,6 +43,7 @@ RUN rm -fr /opt/intelmq/etc/*.conf /var/lib/apt/lists/* /root/.cache
 ADD message.patch /tmp/message.patch
 ADD example_data /example_data
 
+ADD init_db.py /opt/dev_intelmq/intelmq/bin/intelmq_psql_initdb.py
 
 ENTRYPOINT ["entrypoint"]
 CMD ["apachectl -DFOREGROUND"]

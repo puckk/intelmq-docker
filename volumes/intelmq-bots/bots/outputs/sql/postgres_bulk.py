@@ -10,6 +10,7 @@ and thus temporary. We don't want to catch too much, like programming errors
 
 from threading import Thread
 import queue
+import time
 
 from intelmq.lib.bot import SQLBot
 import json
@@ -82,6 +83,7 @@ class CustomSQLOutputBot(SQLBot):
             # self.logger.info(str(event))
             to_save = self.flatten_json(event)
             values = ["{}".format(to_save[k]) if k in to_save else "" for k in sorted(self.table_keys.keys())]
+            values = [v.encode('utf-8').strip().decode('utf-8') for v in values]
             # fvalues = "({})".format(len(values) * '{0}, '.format(self.format_char)[:-2])
             all_values.extend(values)
             # all_values.append("({})".format(', '.join(values)))
@@ -89,8 +91,8 @@ class CustomSQLOutputBot(SQLBot):
         fvalues = (len(to_upload)*'({}), '.format((len(self.table_keys) * '{0}, '.format(self.format_char))[:-2]))[:-2]
         query = ('INSERT INTO {table} ("{keys}") VALUES {fvalues}'
                  ''.format(table=self.table, keys=keys, fvalues=fvalues))
-        self.logger.info(query)
-        self.logger.info(str(values))
+        # self.logger.info(query)
+        # self.logger.info(str(values))
 
         return query, all_values
 
@@ -106,12 +108,13 @@ class CustomSQLOutputBot(SQLBot):
                 
                 query, values = self.create_query(to_upload)
                 # self.logger.info('Query: {}'.format(query))
-                # self.logger.info('Values: {}'.format(values))
-                if self.execute(query, values, rollback=True):
+                # self.logger.info('\nValues: {}'.format(values))
+                if self.execute(query, values, rollback=False):
                     self.con.commit()
 
                 to_upload = []
-                # self.logger.info('uploaded!')
+                self.logger.info('uploaded!')
+            # raise Exception("EEEENNDDDD") # REMOVE THIS
 
 
     def process(self):
@@ -127,6 +130,7 @@ class CustomSQLOutputBot(SQLBot):
             q.put(event)
             self.acknowledge_message()
             # self.logger.info('added to queue')
+            # time.sleep(100) # REMOVE THIS
 
 
 BOT = CustomSQLOutputBot

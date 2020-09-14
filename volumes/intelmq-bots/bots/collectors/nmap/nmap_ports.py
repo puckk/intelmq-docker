@@ -23,15 +23,19 @@ class NmapPortsCollectorBot(CollectorBot):
 
     def init(self):
         self.logger.info("Init Nmap Process.")
-        self.network = ipaddress.ip_network(self.parameters.network)
+        self.network = ipaddress.ip_network(self.parameters.network).with_prefixlen
         self.ports = self.parameters.ports
-        self.nmap_params = getattr(self.parameters, 'nmap_params', "-n -T4 -Pn --max-rtt-timeout 200ms --initial-rtt-timeout 100ms --min-hostgroup 512 -oG -")
+        self.fast_first = getattr(self.parameters, 'fast_first', True)
+        self.nmap_params = getattr(self.parameters, 'nmap_params', '-n -T4 -Pn --max-rtt-timeout 200ms --initial-rtt-timeout 100ms --min-hostgroup 512 -oG -')
         
-    def process(self):
+    def scan(self, network, ports, nmap_params):
         self.logger.info("Starting Nmap Process.")
+        
+        nmap_command = ["nmap", network]
+        if ports:
+            nmap_command.extend(["-p", ports])
 
-        nmap_command = ["nmap", self.network.with_prefixlen, "-p", self.ports]
-        nmap_command.extend(self.nmap_params.split(' '))
+        nmap_command.extend(nmap_params.split(' '))
         self.logger.info(' '.join(nmap_command))
 
         with subprocess.Popen(nmap_command,
@@ -46,6 +50,17 @@ class NmapPortsCollectorBot(CollectorBot):
             finally:
                 p.kill()
                 p.wait()
+
+    def process(self):
+        if self.fast_first:
+            self.logger.info("Starting Fast scan.")
+            self.scan(self.network, None, self.nmap_params)
+            self.logger.info("Finished Fast scan.")
+        
+        self.logger.info("Starting user defined scan.")
+        self.scan(self.network, self.ports, self.nmap_params)
+        self.logger.info("Starting all scans.")
+
 
 
 BOT = NmapPortsCollectorBot

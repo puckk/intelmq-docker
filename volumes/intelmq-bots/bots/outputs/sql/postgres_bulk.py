@@ -89,7 +89,7 @@ class CustomSQLOutputBot(SQLBot):
             # all_values.append("({})".format(', '.join(values)))
 
         fvalues = (len(to_upload)*'({}), '.format((len(self.table_keys) * '{0}, '.format(self.format_char))[:-2]))[:-2]
-        query = ('INSERT INTO {table} ("{keys}") VALUES {fvalues}'
+        query = (u'INSERT INTO {table} ("{keys}") VALUES {fvalues}'
                  ''.format(table=self.table, keys=keys, fvalues=fvalues))
         # self.logger.info(query)
         # self.logger.info(str(values))

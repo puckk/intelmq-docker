@@ -40,6 +40,7 @@
             "description": "Nmap collector fetches data from a file.",
             "module": "intelmq.bots.collectors.nmap.nmap_ports",
             "parameters": {
+                "fast_first": true,
                 "network": "163.10.0.0/16",
                 "ports": "80,443",
                 "nmap_params": "-n -T4 -Pn --max-rtt-timeout 200ms --initial-rtt-timeout 100ms --min-hostgroup 512 -oG -"
@@ -122,7 +123,7 @@
                 "ssl_ca_certificate": null,
                 "ssl_show_warnings": true,
                 "flatten_fields": "extra",
-                "replacement_char": null,
+                "replacement_char": "_",
                 "batch_size": 1000
             }
         },

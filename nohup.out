@@ -1,0 +1,118 @@
+OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
+2020-09-11 19:43:16,961 [   6683]   WARN - s.impl.EditorColorsManagerImpl - Cannot find scheme: VibrantInk from plugin: com.intellij.database 
+2020-09-11 19:43:28,210 [  17932]   WARN - ewvfs.persistent.RefreshWorker - /home/puck/Downloads/tor-browser-linux64-9.5.4_en-US/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/lock 
+java.nio.file.NoSuchFileException: /home/puck/Downloads/tor-browser-linux64-9.5.4_en-US/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/lock
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:116)
+	at java.base/sun.nio.fs.UnixFileAttributeViews$Basic.readAttributes(UnixFileAttributeViews.java:55)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.readAttributes(UnixFileSystemProvider.java:149)
+	at java.base/sun.nio.fs.LinuxFileSystemProvider.readAttributes(LinuxFileSystemProvider.java:99)
+	at java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+	at com.intellij.openapi.vfs.newvfs.persistent.VfsEventGenerationHelper$1.visitFile(VfsEventGenerationHelper.java:149)
+	at com.intellij.openapi.vfs.newvfs.persistent.VfsEventGenerationHelper$1.visitFile(VfsEventGenerationHelper.java:122)
+	at java.base/java.nio.file.Files.walkFileTree(Files.java:2724)
+	at java.base/java.nio.file.Files.walkFileTree(Files.java:2796)
+	at com.intellij.openapi.vfs.newvfs.persistent.VfsEventGenerationHelper.scanChildren(VfsEventGenerationHelper.java:172)
+	at com.intellij.openapi.vfs.newvfs.persistent.VfsEventGenerationHelper.scheduleCreation(VfsEventGenerationHelper.java:77)
+	at com.intellij.openapi.vfs.newvfs.persistent.RefreshWorker.fullDirRefresh(RefreshWorker.java:205)
+	at com.intellij.openapi.vfs.newvfs.persistent.RefreshWorker.processQueue(RefreshWorker.java:130)
+	at com.intellij.openapi.vfs.newvfs.persistent.RefreshWorker.scan(RefreshWorker.java:102)
+	at com.intellij.openapi.vfs.newvfs.RefreshSessionImpl.scan(RefreshSessionImpl.java:149)
+	at com.intellij.openapi.vfs.newvfs.RefreshQueueImpl.doScan(RefreshQueueImpl.java:163)
+	at com.intellij.openapi.vfs.newvfs.RefreshQueueImpl.lambda$queueSession$1(RefreshQueueImpl.java:84)
+	at com.intellij.util.concurrency.BoundedTaskExecutor.doRun(BoundedTaskExecutor.java:222)
+	at com.intellij.util.concurrency.BoundedTaskExecutor.access$200(BoundedTaskExecutor.java:30)
+	at com.intellij.util.concurrency.BoundedTaskExecutor$1.execute(BoundedTaskExecutor.java:201)
+	at com.intellij.util.ConcurrencyUtil.runUnderThreadName(ConcurrencyUtil.java:221)
+	at com.intellij.util.concurrency.BoundedTaskExecutor$1.run(BoundedTaskExecutor.java:190)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2020-09-11 19:43:35,785 [  25507]   WARN - ewvfs.persistent.RefreshWorker - /home/puck/Downloads/tor-browser-linux64-9.5.4_en-US/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/lock 
+java.nio.file.NoSuchFileException: /home/puck/Downloads/tor-browser-linux64-9.5.4_en-US/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/lock
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:116)
+	at java.base/sun.nio.fs.UnixFileAttributeViews$Basic.readAttributes(UnixFileAttributeViews.java:55)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.readAttributes(UnixFileSystemProvider.java:149)
+	at java.base/sun.nio.fs.LinuxFileSystemProvider.readAttributes(LinuxFileSystemProvider.java:99)
+	at java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+	at com.intellij.openapi.vfs.newvfs.persistent.VfsEventGenerationHelper$1.visitFile(VfsEventGenerationHelper.java:149)
+	at com.intellij.openapi.vfs.newvfs.persistent.VfsEventGenerationHelper$1.visitFile(VfsEventGenerationHelper.java:122)
+	at java.base/java.nio.file.Files.walkFileTree(Files.java:2724)
+	at java.base/java.nio.file.Files.walkFileTree(Files.java:2796)
+	at com.intellij.openapi.vfs.newvfs.persistent.VfsEventGenerationHelper.scanChildren(VfsEventGenerationHelper.java:172)
+	at com.intellij.openapi.vfs.newvfs.persistent.VfsEventGenerationHelper.scheduleCreation(VfsEventGenerationHelper.java:77)
+	at com.intellij.openapi.vfs.newvfs.persistent.RefreshWorker.fullDirRefresh(RefreshWorker.java:205)
+	at com.intellij.openapi.vfs.newvfs.persistent.RefreshWorker.processQueue(RefreshWorker.java:130)
+	at com.intellij.openapi.vfs.newvfs.persistent.RefreshWorker.scan(RefreshWorker.java:102)
+	at com.intellij.openapi.vfs.newvfs.RefreshSessionImpl.scan(RefreshSessionImpl.java:149)
+	at com.intellij.openapi.vfs.newvfs.RefreshQueueImpl.doScan(RefreshQueueImpl.java:163)
+	at com.intellij.openapi.vfs.newvfs.RefreshQueueImpl.lambda$queueSession$1(RefreshQueueImpl.java:84)
+	at com.intellij.util.concurrency.BoundedTaskExecutor.doRun(BoundedTaskExecutor.java:222)
+	at com.intellij.util.concurrency.BoundedTaskExecutor.access$200(BoundedTaskExecutor.java:30)
+	at com.intellij.util.concurrency.BoundedTaskExecutor$1.execute(BoundedTaskExecutor.java:201)
+	at com.intellij.util.ConcurrencyUtil.runUnderThreadName(ConcurrencyUtil.java:221)
+	at com.intellij.util.concurrency.BoundedTaskExecutor$1.run(BoundedTaskExecutor.java:190)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - Some skeletons failed to generate 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - PyQt4.QtCore 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - capstone.lib.libcapstone 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib._cntr 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib._contour 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib._image 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib._path 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib._png 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib._qhull 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib._tri 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib.backends._backend_agg 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib.backends._tkagg 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib.ft2font 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - matplotlib.ttconv 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - pytest.testdata.test_pyc 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - selenium.webdriver.firefox.amd64.x_ignore_nofocus 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - selenium.webdriver.firefox.x86.x_ignore_nofocus 
+2020-09-11 19:44:31,849 [  81571]   WARN - .skeletons.PySkeletonRefresher - unicorn.lib.libunicorn 
+OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
+2020-09-11 20:02:46,730 [   2133]   WARN - s.impl.EditorColorsManagerImpl - Cannot find scheme: VibrantInk from plugin: com.intellij.database 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - Some skeletons failed to generate 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - PyQt4.QtCore 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - capstone.lib.libcapstone 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib._cntr 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib._contour 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib._image 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib._path 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib._png 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib._qhull 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib._tri 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib.backends._backend_agg 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib.backends._tkagg 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib.ft2font 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - matplotlib.ttconv 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - pytest.testdata.test_pyc 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - selenium.webdriver.firefox.amd64.x_ignore_nofocus 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - selenium.webdriver.firefox.x86.x_ignore_nofocus 
+2020-09-11 20:02:56,605 [  12008]   WARN - .skeletons.PySkeletonRefresher - unicorn.lib.libunicorn 
+OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
+2020-09-14 21:08:13,964 [   1879]   WARN - s.impl.EditorColorsManagerImpl - Cannot find scheme: VibrantInk from plugin: com.intellij.database 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - Some skeletons failed to generate 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - PyQt4.QtCore 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - capstone.lib.libcapstone 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib._cntr 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib._contour 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib._image 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib._path 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib._png 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib._qhull 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib._tri 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib.backends._backend_agg 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib.backends._tkagg 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib.ft2font 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - matplotlib.ttconv 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - pytest.testdata.test_pyc 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - selenium.webdriver.firefox.amd64.x_ignore_nofocus 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - selenium.webdriver.firefox.x86.x_ignore_nofocus 
+2020-09-14 21:08:25,307 [  13222]   WARN - .skeletons.PySkeletonRefresher - unicorn.lib.libunicorn 

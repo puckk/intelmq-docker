@@ -12,8 +12,6 @@ volumes:
     driver: local
   cert-intelmq-postgres-data:
     driver: local
-  cert-intelmq-grafana:
-    driver: local
 
 networks:
   intelmq-network:
@@ -43,18 +41,6 @@ services:
       - POSTGRES_DB=intelmq-events
     ports:
       - 5432:5432
-    networks:
-      - intelmq-network
-  grafana:
-    image: grafana/grafana:6.5.2
-    volumes:
-      - cert-intelmq-grafana:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
-    links:
-      - elasticsearch:elasticsearch
-    user: '0'
-    ports:
-      - 3000:3000
     networks:
       - intelmq-network
   intelmq:

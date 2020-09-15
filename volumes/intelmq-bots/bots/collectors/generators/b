@@ -1,0 +1,49 @@
+curl -H 'Content-type: application/json' localhost:9200/intelmq-url/_search --data '
+ { "query": {
+    "bool": {
+      "must": [],
+      "filter": [
+        {
+          "bool": {
+            "should": [
+              {
+                "query_string": {
+                  "fields": [
+                    "extra.content"
+                  ],
+                  "query": "* form"
+                }
+              }
+            ],
+            "minimum_should_match": 1
+          }
+        },
+        {
+          "range": {
+            "time.observation": {
+              "format": "strict_date_optional_time",
+              "gte": "2020-05-30T00:26:25.553Z",
+              "lte": "2020-09-12T00:26:25.553Z"
+            }
+          }
+        }
+      ],
+      "should": [],
+      "must_not": []
+    }
+  }}' | jq
+
+
+
+
+  curl -H 'Content-type: application/json' localhost:9200/intelmq-url/_search --data '
+{
+   "query": {
+       "regexp": {
+          "content": {
+            "value": ".*"
+          }
+       }
+   }
+}
+'|jq

@@ -47,6 +47,11 @@
         }
     },
     "Parser": {
+        "Domain": {
+            "description": "Only put domain in json",
+            "module": "intelmq.bots.parsers.domain.domain",
+            "parameters": {}
+        },
         "Nmap Ports": {
             "description": "Parse output of nmap oG ports scan.",
             "module": "intelmq.bots.parsers.nmap.nmap_ports",

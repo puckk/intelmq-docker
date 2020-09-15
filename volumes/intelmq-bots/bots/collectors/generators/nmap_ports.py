@@ -27,7 +27,11 @@ class NmapPortsGeneratorCollectorBot(CollectorBot):
             if len(pr) == 1:
                 self.ports.append(pr[0])
             elif len(pr) == 2:
+<<<<<<< HEAD
                 self.ports.append(range(int(pr[0]), int(pr[1])))
+=======
+                self.ports.extend(list(range(int(pr[0]), int(pr[1]))))
+>>>>>>> a27cd6639a5452cee2be57b842b200e089ec3644
                 
         self.iteration_time = getattr(self.parameters, 'iteration_time', 1)
         self.stop_time = getattr(self.parameters, 'stop_time', 86400)
